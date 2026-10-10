@@ -4,6 +4,7 @@ import {
   WelcomePage,
   Authenticated,
 } from "@refinedev/core";
+
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
@@ -25,14 +26,19 @@ import { useNotificationProvider } from "./components/refine-ui/notification/use
 import { Toaster } from "./components/refine-ui/notification/toaster";
 import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import "./App.css";
+import Dashboard from "./pages/dashboard";
+import { BookOpen, Home } from "lucide-react";
+import SubjectsList from "./pages/subjects/list";
+import SubjectsCreate from "./pages/subjects/create";
 
 function App() {
   return (
     <BrowserRouter>
-      <GitHubBanner />
+      {/* <GitHubBanner /> */}
       <RefineKbarProvider>
         <ThemeProvider>
-          <DevtoolsProvider>
+          <DevtoolsProvider>  
+
             <Refine
               dataProvider={dataProvider}
               notificationProvider={useNotificationProvider()}
@@ -42,17 +48,48 @@ function App() {
                 warnWhenUnsavedChanges: true,
                 projectId: "taRKWe-stVDKW-BWGuqZ",
               }}
+              resources = {[
+                {
+                  name: "dashboard",
+                  list: "/",
+                  meta: { label: "Home", icon: < Home /> }
+                },
+                {
+                  name: "Subjects",
+                  list: "/subjects",
+                  create: "/subjects/create",
+                  meta: { label: "Subjects", icon: <BookOpen/>}
+                }
+              ]}
             >
+
               <Routes>
-                <Route index element={<WelcomePage />} />
+                <Route element={
+                  <Layout>
+                    <Outlet />
+                  </Layout>
+                }>
+
+                < Route path="/" element = {<Dashboard/>} /> {/* <Outlet /> Replace with <Dashboard /> */ }
+                
+                <Route path="subjects">
+                  <Route index element = {<SubjectsList/>}/>
+                  <Route path="Create" element = {<SubjectsCreate/>}/>
+                </Route> 
+               
+                </Route>
               </Routes>
+
               <Toaster />
               <RefineKbar />
               <UnsavedChangesNotifier />
               <DocumentTitleHandler />
+
             </Refine>
             <DevtoolsPanel />
+
           </DevtoolsProvider>
+
         </ThemeProvider>
       </RefineKbarProvider>
     </BrowserRouter>
