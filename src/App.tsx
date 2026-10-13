@@ -38,8 +38,7 @@ function App() {
       {/* <GitHubBanner /> */}
       <RefineKbarProvider>
         <ThemeProvider>
-          <DevtoolsProvider>  
-
+          <DevtoolsProvider>
             <Refine
               dataProvider={dataProvider}
               notificationProvider={useNotificationProvider()}
@@ -49,35 +48,34 @@ function App() {
                 warnWhenUnsavedChanges: true,
                 projectId: "taRKWe-stVDKW-BWGuqZ",
               }}
-              resources = {[
+              resources={[
                 {
                   name: "dashboard",
                   list: "/",
-                  meta: { label: "Home", icon: < Home /> }
+                  meta: { label: "Home", icon: <Home /> },
                 },
                 {
                   name: "Subjects",
                   list: "/subjects",
                   create: "/subjects/create",
-                  meta: { label: "Subjects", icon: <BookOpen/>}
-                }
+                  meta: { label: "Subjects", icon: <BookOpen /> },
+                },
               ]}
             >
-
               <Routes>
-                <Route element={
-                  <Layout>
-                    <Outlet />
-                  </Layout>
-                }>
-
-                < Route path="/" element = {<Dashboard/>} /> {/* <Outlet /> Replace with <Dashboard /> */ }
-                
-                <Route path="subjects">
-                  <Route index element = {<SubjectsList/>}/>
-                  <Route path="Create" element = {<SubjectsCreate/>}/>
-                </Route> 
-               
+                <Route
+                  element={
+                    <Layout>
+                      <Outlet />
+                    </Layout>
+                  }
+                >
+                  <Route path="/" element={<Dashboard />} />{" "}
+                  {/* <Outlet /> Replace with <Dashboard /> */}
+                  <Route path="subjects">
+                    <Route index element={<SubjectsList />} />
+                    <Route path="Create" element={<SubjectsCreate />} />
+                  </Route>
                 </Route>
               </Routes>
 
@@ -85,12 +83,9 @@ function App() {
               <RefineKbar />
               <UnsavedChangesNotifier />
               <DocumentTitleHandler />
-
             </Refine>
             <DevtoolsPanel />
-
           </DevtoolsProvider>
-
         </ThemeProvider>
       </RefineKbarProvider>
     </BrowserRouter>
